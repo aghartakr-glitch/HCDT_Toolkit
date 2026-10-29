@@ -57,10 +57,8 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
     <div class="sect"><span class="hx-n">1</span><b class="grp-h" data-en="Logo" data-ko="로고"></b></div>
     <div class="lab" data-en="Version" data-ko="버전"></div>
     <div class="grp" id="gVer" role="group"></div>
-    <div class="lab" id="lCol" data-en="Color" data-ko="색"></div>
-    <div class="grp" id="gCol" role="group"></div>
-    <div class="lab" data-en="Background" data-ko="배경"></div>
-    <div class="grp" id="gBg" role="group"></div>
+    <div class="lab" data-en="Color" data-ko="색"></div>
+    <div class="grp hx-cgs" id="gBg" role="group"></div>
     <div class="sect"><span class="hx-n">2</span><b class="grp-h" data-en="Motion" data-ko="움직임"></b></div>
     <div class="lab" data-en="Entry order" data-ko="등장 순서"></div>
     <div class="grp" id="gOrd" role="group"></div>
@@ -80,7 +78,7 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
     <thead><tr><th data-en="Element" data-ko="요소"></th><th data-en="Start" data-ko="시작"></th><th data-en="Duration" data-ko="길이"></th><th data-en="Motion" data-ko="움직임"></th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
-  <p class="note" data-en="Shapes are the original vectors from the guideline PDF (sections 1 and 3). The Korean Full Version has no motion. In color versions the right face of each module is HCDT Purple and the left face one auxiliary color; the Full Version uses no auxiliary color. To make a video, screen-record the stage." data-ko="도형은 가이드 PDF(1·3항)의 원본 벡터입니다. 국문 풀 버전은 모션 없음. 컬러 버전에서 모듈의 오른쪽 면은 HCDT Purple, 왼쪽 면은 보조색 하나이고, 풀 버전에는 보조색을 쓰지 않습니다. 영상이 필요하면 무대 화면을 녹화하세요."></p>
+  <p class="note" data-en="Original vectors from the guideline (sections 1 and 3). The Korean Full Version has no motion." data-ko="가이드 원본 벡터(1·3항). 국문 풀 버전은 모션이 없습니다."></p>
 </div>
 
 <script>
@@ -99,7 +97,7 @@ const FIT={'full-en':{w:1180},'general':{w:1180},'limited':{h:640}};
 const $=id=>document.getElementById(id);
 let L='en';
 const S={ver:'general',aux:'verdigris',bg:'white',full:'white',ord:'ltr',rate:1};
-try{const s=JSON.parse(localStorage.getItem('hcdt-motion')||'{}');Object.keys(S).forEach(k=>{if(s[k]!==undefined)S[k]=s[k]})}catch(e){}
+try{const s=JSON.parse(localStorage.getItem('hcdt-motion')||'{}');['ver','ord','rate'].forEach(k=>{if(s[k]!==undefined)S[k]=s[k]})}catch(e){}
 if(!DATA[S.ver])S.ver='general';
 
 /* colors: guide section 1 (Full), 3 (General / Limited), 10 A (purple background) */
@@ -181,23 +179,23 @@ function btn(host,label,on,fn,color){
 const T=(en,ko)=>L==='ko'?ko:en;
 function sw(host,color,name,on,fn){const b=document.createElement('button');b.type='button';b.className='hx-sw';b.style.setProperty('--c',color);b.title=name;b.setAttribute('aria-label',name);b.setAttribute('aria-pressed',String(on));b.addEventListener('click',fn);host.appendChild(b)}
 function cap(host,t){const e=document.createElement('span');e.className='swn';e.textContent=t;host.appendChild(e)}
+function chip(host,bg,tx,pt,name,on,fn){const b=document.createElement('button');b.type='button';b.className='hx-chip';b.style.cssText=`--b:${bg};--t:${tx};--p:${pt}`;b.title=name;b.setAttribute('aria-label',name);b.setAttribute('aria-pressed',String(on));b.innerHTML='Aa<i></i>';b.addEventListener('click',fn);host.appendChild(b)}
+function cgroup(host,label){const g=document.createElement('div');g.className='hx-cg';const l=document.createElement('b');l.textContent=label;const c=document.createElement('div');c.className='hx-chips';g.append(l,c);host.appendChild(g);return c}
 function controls(){
   $('gVer').textContent='';VERS.forEach(v=>btn($('gVer'),T(v[1],v[2]),S.ver===v[0],()=>{S.ver=v[0];redo()}));
-  const C=$('gCol'),B=$('gBg');C.textContent='';B.textContent='';
-  const A=AUX.find(a=>a[0]===S.aux)||AUX[0];
+  const B=$('gBg');B.textContent='';
   if(S.ver.startsWith('full')){
-    $('lCol').hidden=true;C.hidden=true;
-    sw(B,WHITE,T('White · UNIST Navy','흰 배경 · UNIST Navy'),S.full==='white',()=>{S.full='white';redo()});
-    sw(B,NAVY,T('UNIST Navy · white','UNIST Navy 배경 · 흰색'),S.full==='navy',()=>{S.full='navy';redo()});
-    cap(B,S.full==='white'?T('White · UNIST Navy','흰 배경 · UNIST Navy'):T('UNIST Navy · white','UNIST Navy 배경 · 흰색'));
+    const g=cgroup(B,'UNIST');
+    chip(g,WHITE,NAVY,NAVY,T('White · UNIST Navy','흰 배경 · UNIST Navy'),S.full==='white',()=>{S.full='white';redo()});
+    chip(g,NAVY,WHITE,WHITE,T('UNIST Navy · white','UNIST Navy 배경 · 흰색'),S.full==='navy',()=>{S.full='navy';redo()});
   }else{
-    $('lCol').hidden=false;C.hidden=false;
-    AUX.forEach(a=>sw(C,a[1],T(a[2],a[3]),S.aux===a[0],()=>{S.aux=a[0];redo()}));
-    cap(C,T(A[2],A[3]));
-    sw(B,WHITE,T('White','흰색'),S.bg==='white',()=>{S.bg='white';redo()});
-    sw(B,PURPLE,T('Purple (A)','보라 (A)'),S.bg==='purple',()=>{S.bg='purple';redo()});
-    sw(B,A[1],T(A[2]+' (C)',A[3]+' (C)'),S.bg==='aux',()=>{S.bg='aux';redo()});
-    cap(B,S.bg==='white'?T('White','흰색'):S.bg==='purple'?T('Purple (A)','보라 (A)'):T(A[2]+' (C)',A[3]+' (C)'));
+    const set=(bg,a)=>()=>{S.bg=bg;S.aux=a;redo()};
+    const g1=cgroup(B,T('White','흰색')),g2=cgroup(B,T('Purple','보라')),g3=cgroup(B,T('Color','컬러'));
+    AUX.forEach(a=>{
+      chip(g1,WHITE,PURPLE,a[1],`${T(a[2],a[3])}`,S.bg==='white'&&S.aux===a[0],set('white',a[0]));
+      chip(g2,PURPLE,WHITE,a[1],`${T(a[2],a[3])}`,S.bg==='purple'&&S.aux===a[0],set('purple',a[0]));
+      chip(g3,a[1],PURPLE,CACC[a[0]],`${T(a[2],a[3])}`,S.bg==='aux'&&S.aux===a[0],set('aux',a[0]));
+    });
   }
   $('gOrd').textContent='';ORDS.forEach(o=>btn($('gOrd'),T(o[1],o[2]),S.ord===o[0],()=>{S.ord=o[0];redo()}));
   $('gRate').textContent='';RATES.forEach(r=>btn($('gRate'),r+'×',S.rate===r,()=>{S.rate=r;controls();play()}));
