@@ -34,6 +34,14 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 .note{color:var(--hx-muted);font-size:var(--fs-small);margin:0;max-width:90ch}
 @media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr);gap:6px}.lab{margin-top:8px}}
 </style>
+<style>
+/* wide workspace: stage left, controls right */
+html.hx-wide body{height:100vh;overflow:hidden}
+html.hx-wide .wrap{max-width:none;height:100%;margin:0;padding-block:8px;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:start;gap:12px 24px}
+html.hx-wide .wrap>header,html.hx-wide .hx-steps{grid-column:1/-1}
+html.hx-wide .hx-steps,html.hx-wide .tw,html.hx-wide .note{display:none!important}
+html.hx-wide .ctl{overflow:auto;max-height:100%;grid-template-columns:90px minmax(0,1fr)}
+</style>
 </head>
 <body>
 <div class="wrap">
