@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="hcdt-ui.css?v=20261029f">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261029g">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -40,7 +40,9 @@ html.hx-wide body{height:100vh;overflow:hidden}
 html.hx-wide .wrap{max-width:none;height:100%;margin:0;padding-block:0;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:start;gap:12px 24px}
 html.hx-wide .wrap>header,html.hx-wide .hx-steps{grid-column:1/-1}
 html.hx-wide .hx-steps,html.hx-wide .tw,html.hx-wide .note{display:none!important}
-html.hx-wide .ctl{overflow:auto;max-height:100%;grid-template-columns:90px minmax(0,1fr)}
+html.hx-wide .ctl{overflow:auto;height:100%;box-sizing:border-box;align-self:stretch;align-content:start;border:1px solid var(--hx-line,#ddd);border-radius:var(--hx-r2,12px);padding:16px;grid-template-columns:90px minmax(0,1fr)}
+html.hx-wide .stage{align-self:stretch;height:100%;display:flex;align-items:center;justify-content:center}
+html.hx-wide .stage svg{width:100%;height:auto;max-height:100%}
 </style>
 </head>
 <body>
@@ -264,6 +266,6 @@ try{L=localStorage.getItem('hcdt-lang')==='ko'?'ko':'en'}catch(e){}
 window.HXApply(L);build();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)still();else play();
 </script>
-<script src="hcdt-ui.js?v=20261029f" data-tool="motion"></script>
+<script src="hcdt-ui.js?v=20261029g" data-tool="motion"></script>
 </body>
 </html>
