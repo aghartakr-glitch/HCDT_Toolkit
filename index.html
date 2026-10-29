@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="hcdt-ui.css">
 <style>
-/* Layout: shared bar · intro · five tool rows (live preview · name and purpose · open) · spec table.
+/* Layout: shared bar · intro · six tool rows (live preview · name and purpose · open) · spec table.
    Type follows hcdt-ui.css: 20 / 14 / 13 / 12 / 11. Previews move on hover or keyboard focus. */
 html,body{margin:0}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -65,6 +65,8 @@ body{font:var(--hx-t3);font-variant-numeric:tabular-nums}
 .p-poster img{height:86%;top:7%;left:50%;transform:translateX(-50%);box-shadow:0 1px 2px rgba(0,0,0,.1),0 8px 24px rgba(20,10,40,.12);opacity:0;transition:opacity .3s}
 .p-poster img.on{opacity:1}
 /* letter: pages fan out and the grid appears */
+.p-slides img{width:84%;left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 1px 2px rgba(0,0,0,.1),0 8px 24px rgba(20,10,40,.12);opacity:0;transition:opacity .3s}
+.p-slides img.on{opacity:1}
 .p-letter img{height:86%;top:7%;left:50%;box-shadow:0 1px 2px rgba(0,0,0,.1),0 8px 24px rgba(20,10,40,.1);transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .35s}
 .p-letter .l1,.p-letter .lg{transform:translateX(-50%);z-index:3}
 .p-letter .lg{opacity:0;z-index:4}
@@ -95,8 +97,8 @@ td b{font-weight:700}
   <section class="intro">
     <div>
       <h1>HCDT Toolkit</h1>
-      <p data-en="Five tools for the Department of Human-Centered Design + Technology, UNIST. Each one works inside the N-FUD 2026 identity: approved logos, colors and grids only."
-         data-ko="UNIST 인간중심디자인공학과 디자인 도구 5종. 모두 N-FUD 2026 아이덴티티 안에서만 작동: 승인된 로고, 색, 그리드만 사용."></p>
+      <p data-en="Six tools for the Department of Human-Centered Design + Technology, UNIST. Each one works inside the N-FUD 2026 identity: approved logos, colors and grids only."
+         data-ko="UNIST 인간중심디자인공학과 디자인 도구 6종. 모두 N-FUD 2026 아이덴티티 안에서만 작동: 승인된 로고, 색, 그리드만 사용."></p>
     </div>
     <dl>
       <dt data-en="Guide" data-ko="가이드"></dt><dd>N-FUD 2026 · 261028</dd>
@@ -169,6 +171,22 @@ td b{font-weight:700}
           <div class="chips"><span>A4</span><span>PDF</span></div></div>
         <span class="go"><span data-en="Open" data-ko="열기"></span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h9M7.5 3.5 11 7l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
       </a></li>
+
+      <li><a class="tool" href="slides.html" data-anim="slides">
+        <div class="pic p-slides">
+          <img class="on" src="thumbs/slides_s1.webp" alt="">
+          <img src="thumbs/slides_s2.webp" alt="">
+          <img src="thumbs/slides_s3.webp" alt="">
+          <img src="thumbs/slides_s4.webp" alt="">
+          <img src="thumbs/slides_p1.webp" alt="">
+          <img src="thumbs/slides_p4.webp" alt="">
+          <span class="cap"></span>
+        </div>
+        <div class="txt"><span class="k">06</span><h2 data-en="Slides Generator" data-ko="PPT 생성기"></h2>
+          <p data-en="Cover, contents, section, body, photo and quote layouts on the 8 × 10 grid. UNIST full-version or HCDT color themes, exported as an editable PowerPoint." data-ko="8 × 10 그리드 위 표지·목차·간지·본문·사진·인용 레이아웃. UNIST 풀버전 또는 HCDT 배색, 편집 가능한 PowerPoint로 내보내기."></p>
+          <div class="chips"><span>16:9</span><span>PPTX</span><span>PDF</span><span>PNG</span><span>JSON</span></div></div>
+        <span class="go"><span data-en="Open" data-ko="열기"></span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h9M7.5 3.5 11 7l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
+      </a></li>
     </ul>
   </section>
 
@@ -182,6 +200,7 @@ td b{font-weight:700}
         <tr><td><b data-en="Name Card" data-ko="명함 생성기"></b></td><td>90 × 50 mm</td><td data-en="PDF (2 pages) · SVG" data-ko="PDF (2쪽) · SVG"></td><td data-en="Guide 261028, section 10" data-ko="가이드 261028, 10항"></td></tr>
         <tr><td><b data-en="Poster Generator" data-ko="포스터 생성기"></b></td><td data-en="A4 · margin 14 mm · 4 col × 14 rows · gutter 4 mm" data-ko="A4 · 여백 14 mm · 4단 × 14행 · 간격 4 mm"></td><td>PDF 300 dpi · PNG · JSON</td><td data-en="Guide 261028, section 10 · InDesign poster" data-ko="가이드 261028, 10항 · InDesign 포스터"></td></tr>
         <tr><td><b data-en="Letter Template" data-ko="문서 서식 생성기"></b></td><td data-en="A4 · margin 14 mm · 4 col × 14 rows · gutter 4 mm" data-ko="A4 · 여백 14 mm · 4단 × 14행 · 간격 4 mm"></td><td>PDF</td><td data-en="Guide 261028, section 10 · InDesign letter" data-ko="가이드 261028, 10항 · InDesign 레터"></td></tr>
+        <tr><td><b data-en="Slides Generator" data-ko="PPT 생성기"></b></td><td data-en="16:9 · 1920 × 1080 · 8 col × 10 rows" data-ko="16:9 · 1920 × 1080 · 8단 × 10행"></td><td>PPTX · PDF · PNG · JSON</td><td data-en="Guide 261028, section 10 · InDesign HCDT_PPT" data-ko="가이드 261028, 10항 · InDesign HCDT_PPT"></td></tr>
       </tbody>
     </table></div>
   </section>
@@ -192,6 +211,7 @@ td b{font-weight:700}
 <script>
 const AUX=[['#64D8D8','Verdigris','베르디그리'],['#E8B9AA','Terracotta','테라코타'],['#73D888','Fluoxetine','플루옥세틴'],['#E8E041','Asparagus Soup','아스파라거스 수프']];
 const CARDS=[['Full logo','풀 로고'],['Trapezoid','사다리꼴'],['+ –','+ –'],['Color scheme','배색 로고']];
+const SLIDES=[['Cover','표지'],['Contents','목차'],['Quote','인용'],['Body','본문'],['Purple theme · cover','보라 테마 · 표지'],['Purple theme · body','보라 테마 · 본문']];
 const POSTERS=[...[1,2,3,4,5,6].map(n=>['Template '+n,'템플릿 '+n]),['Combination A','배색 A'],['Combination C','배색 C'],['Combination D','배색 D'],['Combination E','배색 E']];
 let L='en';
 const T=(a)=>L==='ko'?a[1]:a[0];
@@ -225,6 +245,11 @@ const ANIM={
     const im=[...pic.querySelectorAll('img')],cap=pic.querySelector('.cap');let i=0,tm;
     const show=()=>{im.forEach((f,j)=>f.classList.toggle('on',j===i));cap.textContent=T(POSTERS[i])};
     return {start(){i=0;show();tm=setInterval(()=>{i=(i+1)%im.length;show()},650)},stop(){clearInterval(tm);i=0;im.forEach((f,j)=>f.classList.toggle('on',!j))},label(){show()}};
+  },
+  slides(pic){
+    const im=[...pic.querySelectorAll('img')],cap=pic.querySelector('.cap');let i=0,tm;
+    const show=()=>{im.forEach((f,j)=>f.classList.toggle('on',j===i));cap.textContent=T(SLIDES[i])};
+    return {start(){i=0;show();tm=setInterval(()=>{i=(i+1)%im.length;show()},800)},stop(){clearInterval(tm);i=0;im.forEach((f,j)=>f.classList.toggle('on',!j))},label(){show()}};
   },
   letter(pic){
     const cap=pic.querySelector('.cap');
