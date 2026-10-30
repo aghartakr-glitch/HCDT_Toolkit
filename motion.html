@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="hcdt-ui.css?v=20261031a">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261031c">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -35,6 +35,9 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 @media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr);gap:6px}.lab{margin-top:8px}}
 .ctl-tabs{display:none}
 .play{margin-top:12px}
+/* inside the guideline frame the preview is sized so the whole tool fits the frame (no inner scroll) */
+html.hx-framed:not(.hx-wide) .tw-d{display:none}
+@media (min-width:1000px){html.hx-framed:not(.hx-wide) .left .stage{width:min(100%,calc((100vh - 300px) * 16 / 9))}}
 .tw-d summary{cursor:pointer;font-weight:600;color:var(--hx-muted);padding:6px 0}
 .tw-d[open] summary{margin-bottom:8px}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
@@ -44,9 +47,9 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
   html:not(.hx-wide) .wrap>.left{grid-column:1}
   html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start}
   .ctl-tabs{display:flex;gap:20px;border-bottom:1px solid var(--hx-line,#ddd);margin-bottom:6px}
-  .ctl .ctl-tabs button{min-height:0;padding:6px 0!important;border:0!important;border-bottom:2px solid transparent!important;margin-bottom:-1px;border-radius:0!important;background:transparent!important;color:#000!important;font-weight:600;cursor:pointer}
-  .ctl .ctl-tabs button:hover{color:var(--hx-accent,#6B00FF)!important}
-  .ctl .ctl-tabs button[aria-selected=true]{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-accent,#6B00FF)!important}
+  body.hx-p-motion .wrap .ctl .ctl-tabs button{min-height:0;padding:6px 0!important;border:0!important;border-bottom:2px solid transparent!important;margin-bottom:-1px;border-radius:0!important;background:transparent!important;color:#000!important;font-weight:600;cursor:pointer}
+  body.hx-p-motion .wrap .ctl .ctl-tabs button:hover{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-line,#ddd)!important}
+  body.hx-p-motion .wrap .ctl .ctl-tabs button[aria-selected=true]{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-accent,#6B00FF)!important}
   .ctl[data-tab="1"] [data-g="2"],.ctl[data-tab="2"] [data-g="1"]{display:none!important}
   .ctl .sect{display:none}
   html:not(.hx-wide) .ctl .lab{margin-top:8px}
