@@ -39,7 +39,7 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
   html:not(.hx-wide) .wrap>*{grid-column:1/-1}
   html:not(.hx-wide) .wrap>.stage{grid-column:1}
   html:not(.hx-wide) .wrap>.stage{position:sticky;top:12px}
-  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start}
+  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px}
   html:not(.hx-wide) .ctl .lab{margin-top:8px}
 }
 </style>
