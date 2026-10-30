@@ -35,10 +35,11 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 @media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr);gap:6px}.lab{margin-top:8px}}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
 @media (min-width:1000px){
-  html:not(.hx-wide) .wrap{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:start;gap:20px 24px}
+  html:not(.hx-wide) .wrap{grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:start;gap:20px 24px}
   html:not(.hx-wide) .wrap>*{grid-column:1/-1}
   html:not(.hx-wide) .wrap>.stage{grid-column:1}
-  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px}
+  html:not(.hx-wide) .wrap>.stage{position:sticky;top:12px}
+  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;position:sticky;top:12px;align-self:start}
   html:not(.hx-wide) .ctl .lab{margin-top:8px}
 }
 </style>
