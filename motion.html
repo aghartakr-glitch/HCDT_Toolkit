@@ -242,14 +242,13 @@ function cgroup(host,label){const g=document.createElement('div');g.className='h
 function controls(){
   $('gVer').textContent='';VERS.forEach(v=>btn($('gVer'),T(v[1],v[2]),S.ver===v[0],()=>{S.ver=v[0];redo()}));
   const B=$('gBg');B.textContent='';
-  if(S.ver.startsWith('full')){
-    const g=cgroup(B,'UNIST');
-    chip(g,WHITE,NAVY,NAVY,T('White · UNIST Navy','흰 배경 · UNIST Navy'),S.full==='white',()=>{S.full='white';redo()});
-    chip(g,NAVY,WHITE,WHITE,T('UNIST Navy · white','UNIST Navy 배경 · 흰색'),S.full==='navy',()=>{S.full='navy';redo()});
-  }else{
-    ROWS.forEach(r=>{const g=cgroup(B,T(r[0][0],r[0][1]));
-      Object.keys(r[1]).forEach(k=>r[1][k].forEach((c,i)=>{const id=k+':'+i;chip(g,HX[c[0]],HX[c[1]],HX[c[2]],c.join(' / '),S.cb===id,()=>{S.cb=id;redo()})}))});
-  }
+  const full=S.ver.startsWith('full');
+  {const g=cgroup(B,'UNIST');
+    chip(g,WHITE,NAVY,NAVY,T('White · UNIST Navy','흰 배경 · UNIST Navy'),full&&S.full==='white',()=>{S.ver='full-en';S.full='white';redo()});
+    chip(g,NAVY,WHITE,WHITE,T('UNIST Navy · white','UNIST Navy 배경 · 흰색'),full&&S.full==='navy',()=>{S.ver='full-en';S.full='navy';redo()});}
+  /* the colored combinations belong to the General Use / Limited Space logos: picking one switches the version */
+  ROWS.forEach(r=>{const g=cgroup(B,T(r[0][0],r[0][1]));
+    Object.keys(r[1]).forEach(k=>r[1][k].forEach((c,i)=>{const id=k+':'+i;chip(g,HX[c[0]],HX[c[1]],HX[c[2]],c.join(' / '),!full&&S.cb===id,()=>{S.cb=id;if(S.ver.startsWith('full'))S.ver='general';redo()})}))});
   $('gOrd').textContent='';MOT.forEach(o=>btn($('gOrd'),T(o[1],o[2]),S.mot===o[0],()=>{S.mot=o[0];redo()}));
   $('gRate').textContent='';RATES.forEach(r=>btn($('gRate'),r+'×',S.rate===r,()=>{S.rate=r;controls();play()}));
 }
