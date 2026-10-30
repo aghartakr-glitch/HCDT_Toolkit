@@ -106,7 +106,7 @@ const ROWS=[
  [['Color','컬러'],{C:[['verdigris','purple','asparagus'],['terracotta','purple','verdigris'],['fluoxetine','purple','terracotta'],['asparagus','purple','fluoxetine']],D:[['verdigris','terracotta','purple'],['terracotta','fluoxetine','purple'],['fluoxetine','asparagus','purple'],['asparagus','verdigris','purple']],E:[['verdigris','terracotta','asparagus'],['terracotta','fluoxetine','asparagus'],['fluoxetine','asparagus','terracotta'],['asparagus','verdigris','terracotta']]}]
 ];
 const comboOf=k=>{const [g,i]=k.split(':');for(const r of ROWS)if(r[1][g])return r[1][g][+i]||null;return null};
-const RATES=[0.25,0.5,1];
+const RATES=[0.25,0.5,1,1.5,2];
 const CFG={durMax:1100,durMin:650,sweep:800,jitter:120,typeDelay:1000,typeDur:900,hold:1500,out:400};
 /* stage size of each version in the 1920 × 1080 frame */
 const FIT={'full-en':{w:1180},'general':{w:1180},'limited':{h:640}};
