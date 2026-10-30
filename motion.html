@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="hcdt-ui.css?v=20261030b">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261030h">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -35,16 +35,18 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 @media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr);gap:6px}.lab{margin-top:8px}}
 .ctl-tabs{display:none}
 .play{margin-top:12px}
+.tw-d summary{cursor:pointer;font-weight:600;color:var(--hx-muted);padding:6px 0}
+.tw-d[open] summary{margin-bottom:8px}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
 @media (min-width:1000px){
   html:not(.hx-wide) .wrap{grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:start;gap:20px 24px}
   html:not(.hx-wide) .wrap>*{grid-column:1/-1}
   html:not(.hx-wide) .wrap>.left{grid-column:1}
   html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start}
-  .ctl-tabs{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--hx-line,#ddd);border-radius:var(--hx-pill,9999px);background:#fff;justify-self:start;margin-bottom:6px}
-  .ctl .ctl-tabs button{min-height:26px;padding:4px 16px!important;border:0!important;border-radius:var(--hx-pill,9999px)!important;background:transparent!important;color:#000!important;cursor:pointer;font-weight:600}
-  .ctl .ctl-tabs button:hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 30%,#fff)!important}
-  .ctl .ctl-tabs button[aria-selected=true]{background:var(--hx-accent,#6B00FF)!important;color:#fff!important}
+  .ctl-tabs{display:flex;gap:20px;border-bottom:1px solid var(--hx-line,#ddd);margin-bottom:6px}
+  .ctl .ctl-tabs button{min-height:0;padding:6px 0!important;border:0!important;border-bottom:2px solid transparent!important;margin-bottom:-1px;border-radius:0!important;background:transparent!important;color:#000!important;font-weight:600;cursor:pointer}
+  .ctl .ctl-tabs button:hover{color:var(--hx-accent,#6B00FF)!important}
+  .ctl .ctl-tabs button[aria-selected=true]{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-accent,#6B00FF)!important}
   .ctl[data-tab="1"] [data-g="2"],.ctl[data-tab="2"] [data-g="1"]{display:none!important}
   .ctl .sect{display:none}
   html:not(.hx-wide) .ctl .lab{margin-top:8px}
@@ -55,7 +57,7 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 html.hx-wide body{height:100vh;overflow:hidden}
 html.hx-wide .wrap{max-width:none;height:100%;margin:0;padding-block:0;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:start;gap:12px 24px}
 html.hx-wide .wrap>header,html.hx-wide .hx-steps{grid-column:1/-1}
-html.hx-wide .hx-steps,html.hx-wide .tw,html.hx-wide .note{display:none!important}
+html.hx-wide .hx-steps,html.hx-wide .tw-d{display:none!important}
 html.hx-wide .ctl{overflow:auto;height:100%;box-sizing:border-box;align-self:stretch;align-content:start;border:1px solid var(--hx-line,#ddd);border-radius:var(--hx-r2,12px);padding:16px;grid-template-columns:90px minmax(0,1fr)}
 html.hx-wide .left{align-self:stretch;height:100%;min-height:0;display:flex;flex-direction:column;gap:12px}
 html.hx-wide .left .stage{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
@@ -86,12 +88,12 @@ html.hx-wide .stage svg{width:100%;height:auto;max-height:100%}
       <span class="sep" aria-hidden="true"></span>
       <span class="grp" id="gRate" role="group"></span>
       <span class="sep" aria-hidden="true"></span>
-      <button type="button" id="dlVideo" class="primary">Download video (WebM)</button>
+      <button type="button" id="dlVideo" class="primary" hidden>Download video (WebM)</button>
     </div>
   </div>
 
   <div class="ctl" data-tab="1">
-    <div class="ctl-tabs" role="tablist"><button type="button" role="tab" data-t="1" aria-selected="true" data-en="1 Logo" data-ko="1 로고"></button><button type="button" role="tab" data-t="2" aria-selected="false" data-en="2 Motion" data-ko="2 움직임"></button></div>
+    <div class="ctl-tabs" role="tablist"><button type="button" role="tab" data-t="1" aria-selected="true" data-en="Logo" data-ko="로고"></button><button type="button" role="tab" data-t="2" aria-selected="false" data-en="Motion" data-ko="움직임"></button></div>
     <div class="sect" data-g="1"><span class="hx-n">1</span><b class="grp-h" data-en="Logo" data-ko="로고"></b></div>
     <div data-g="1" class="lab" data-en="Version" data-ko="버전"></div>
     <div data-g="1" class="grp" id="gVer" role="group"></div>
@@ -102,12 +104,14 @@ html.hx-wide .stage svg{width:100%;height:auto;max-height:100%}
     <div data-g="2" class="grp" id="gOrd" role="group"></div>
   </div>
 
+  <details class="tw-d"><summary data-en="Timing details" data-ko="타이밍 상세"></summary>
   <div class="tw"><table>
     <caption data-en="Timing at 1×" data-ko="1배속 기준 타이밍"></caption>
     <thead><tr><th data-en="Element" data-ko="요소"></th><th data-en="Start" data-ko="시작"></th><th data-en="Duration" data-ko="길이"></th><th data-en="Motion" data-ko="움직임"></th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
   <p class="note" data-en="Original vectors from the guideline (sections 1 and 3). The Korean Full Version has no motion." data-ko="가이드 원본 벡터(1·3항). 국문 풀 버전은 모션이 없습니다."></p>
+  </details>
 </div>
 
 <script>
@@ -121,8 +125,8 @@ const VERS=[['full-en','Full Version','풀 버전'],['general','General Use','�
 const HX={purple:'#6B00FF',white:'#FFFFFF',navy:'#001B54',verdigris:'#64D8D8',terracotta:'#E8B9AA',fluoxetine:'#73D888',asparagus:'#E8E041'};
 const ROWS=[
  [['White','흰색'],{Base:[['white','purple','verdigris'],['white','purple','terracotta'],['white','purple','fluoxetine'],['white','purple','asparagus']]}],
- [['Purple','보라'],{A:[['purple','white','verdigris'],['purple','white','terracotta'],['purple','white','fluoxetine'],['purple','white','asparagus']],B:[['purple','terracotta','verdigris'],['purple','fluoxetine','asparagus'],['purple','verdigris','asparagus'],['purple','asparagus','fluoxetine']]}],
- [['Color','컬러'],{C:[['verdigris','purple','asparagus'],['terracotta','purple','verdigris'],['fluoxetine','purple','terracotta'],['asparagus','purple','fluoxetine']],D:[['verdigris','terracotta','purple'],['terracotta','fluoxetine','purple'],['fluoxetine','asparagus','purple'],['asparagus','verdigris','purple']],E:[['verdigris','terracotta','asparagus'],['terracotta','fluoxetine','asparagus'],['fluoxetine','asparagus','terracotta'],['asparagus','verdigris','terracotta']]}]
+ [['Purple','보라'],{A:[['purple','white','verdigris'],['purple','white','terracotta'],['purple','white','fluoxetine'],['purple','white','asparagus']]}],
+ [['Color','컬러'],{C:[['verdigris','purple','asparagus'],['terracotta','purple','verdigris'],['fluoxetine','purple','terracotta'],['asparagus','purple','fluoxetine']]}]
 ];
 const comboOf=k=>{const [g,i]=k.split(':');for(const r of ROWS)if(r[1][g])return r[1][g][+i]||null;return null};
 const RATES=[0.25,0.5,1,1.5,2];
@@ -132,8 +136,8 @@ const FIT={'full-en':{w:1180},'general':{w:1180},'limited':{h:640}};
 
 const $=id=>document.getElementById(id);
 let L='en';
-const S={ver:'general',cb:'Base:0',full:'white',mot:'flip',rate:1};
-try{const s=JSON.parse(localStorage.getItem('hcdt-motion')||'{}');['ver','cb','full','mot','rate'].forEach(k=>{if(s[k]!==undefined)S[k]=s[k]})}catch(e){}
+/* every visit starts from the same screen: Full Version (with UNIST) on white */
+const S={ver:'full-en',cb:'Base:0',full:'white',mot:'flip',rate:1};
 if(!DATA[S.ver])S.ver='general';
 
 /* colors: guide section 1 (Full), 3 (General / Limited), 10 A (purple background) */
@@ -245,7 +249,6 @@ function controls(){
   }
   $('gOrd').textContent='';MOT.forEach(o=>btn($('gOrd'),T(o[1],o[2]),S.mot===o[0],()=>{S.mot=o[0];redo()}));
   $('gRate').textContent='';RATES.forEach(r=>btn($('gRate'),r+'×',S.rate===r,()=>{S.rate=r;controls();play()}));
-  try{localStorage.setItem('hcdt-motion',JSON.stringify(S))}catch(e){}
 }
 function redo(){controls();build();play()}
 function table(marksEnd){
@@ -302,7 +305,7 @@ try{L=localStorage.getItem('hcdt-lang')==='ko'?'ko':'en'}catch(e){}
 window.HXApply(L);build();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)still();else play();
 </script>
-<script src="hcdt-ui.js?v=20261030d" data-tool="motion"></script>
+<script src="hcdt-ui.js?v=20261030h" data-tool="motion"></script>
 <script>document.querySelectorAll(".ctl-tabs button").forEach(function(b){b.addEventListener("click",function(){var c=b.closest(".ctl");c.dataset.tab=b.dataset.t;c.querySelectorAll(".ctl-tabs button").forEach(function(x){x.setAttribute("aria-selected",x===b)})})})</script>
 </body>
 </html>
