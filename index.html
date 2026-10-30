@@ -76,7 +76,6 @@ body{font:400 var(--fs-body)/1.5 var(--hx-font);font-variant-numeric:tabular-num
 .tool:hover .p-letter .l1,.tool:hover .p-letter .lg,.tool:focus-visible .p-letter .l1,.tool:focus-visible .p-letter .lg{transform:translateX(-95%)}
 .tool:hover .p-letter .l2,.tool:focus-visible .p-letter .l2{transform:translateX(-45%) rotate(2deg)}
 .tool:hover .p-letter .l3,.tool:focus-visible .p-letter .l3{transform:translateX(5%) rotate(4deg)}
-@media (prefers-reduced-motion:reduce){.pic *{transition:none!important}}
 
 @media (max-width:860px){
   .tool{grid-template-columns:minmax(0,1fr);gap:16px}
@@ -243,7 +242,8 @@ const ANIM={
 };
 document.querySelectorAll('.tool').forEach(a=>{
   const c=ANIM[a.dataset.anim](a.querySelector('.pic'));a._c=c;
-  const on=()=>{if(!reduce){c.label();c.start()}else c.label()},off=()=>c.stop();
+  /* hover previews are user-triggered, so they play even when the OS asks to reduce motion */
+  const on=()=>{c.label();c.start()},off=()=>c.stop();
   a.addEventListener('mouseenter',on);a.addEventListener('mouseleave',off);
   a.addEventListener('focus',on);a.addEventListener('blur',off);
 });
