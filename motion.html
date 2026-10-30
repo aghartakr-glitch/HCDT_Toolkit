@@ -33,13 +33,19 @@ th,td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--hx-li
 th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 .note{color:var(--hx-muted);font-size:var(--fs-small);margin:0;max-width:90ch}
 @media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr);gap:6px}.lab{margin-top:8px}}
+.ctl-tabs{display:none}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
 @media (min-width:1000px){
   html:not(.hx-wide) .wrap{grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:start;gap:20px 24px}
   html:not(.hx-wide) .wrap>*{grid-column:1/-1}
   html:not(.hx-wide) .wrap>.stage{grid-column:1}
   html:not(.hx-wide) .wrap>.stage{position:sticky;top:12px}
-  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px}
+  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start;position:sticky;top:12px}
+  .ctl-tabs{display:flex;gap:6px;margin-bottom:4px}
+  .ctl-tabs button{flex:1;min-height:32px;border-radius:var(--hx-pill,9999px);border:1px solid var(--hx-accent,#6B00FF)!important;background:#fff!important;color:var(--hx-accent,#6B00FF)!important;cursor:pointer}
+  .ctl-tabs button[aria-selected=true]{background:var(--hx-accent,#6B00FF)!important;color:#fff!important}
+  .ctl[data-tab="1"] [data-g="2"],.ctl[data-tab="2"] [data-g="1"]{display:none}
+  .ctl .sect{display:none}
   html:not(.hx-wide) .ctl .lab{margin-top:8px}
 }
 </style>
@@ -50,6 +56,7 @@ html.hx-wide .wrap{max-width:none;height:100%;margin:0;padding-block:0;grid-temp
 html.hx-wide .wrap>header,html.hx-wide .hx-steps{grid-column:1/-1}
 html.hx-wide .hx-steps,html.hx-wide .tw,html.hx-wide .note{display:none!important}
 html.hx-wide .ctl{overflow:auto;height:100%;box-sizing:border-box;align-self:stretch;align-content:start;border:1px solid var(--hx-line,#ddd);border-radius:var(--hx-r2,12px);padding:16px;grid-template-columns:90px minmax(0,1fr)}
+html.hx-wide .ctl[data-tab="1"] [data-g="2"],html.hx-wide .ctl[data-tab="2"] [data-g="1"]{display:none}
 html.hx-wide .stage{align-self:stretch;height:100%;display:flex;align-items:center;justify-content:center}
 html.hx-wide .stage svg{width:100%;height:auto;max-height:100%}
 </style>
@@ -72,17 +79,18 @@ html.hx-wide .stage svg{width:100%;height:auto;max-height:100%}
 
   <div class="stage"><svg id="stage" viewBox="0 0 1920 1080" role="img" aria-label="HCDT logo motion"><rect id="bg" width="1920" height="1080" fill="#FFFFFF"/><g id="logo"></g></svg></div>
 
-  <div class="ctl">
-    <div class="sect"><span class="hx-n">1</span><b class="grp-h" data-en="Logo" data-ko="로고"></b></div>
-    <div class="lab" data-en="Version" data-ko="버전"></div>
-    <div class="grp" id="gVer" role="group"></div>
-    <div class="lab" data-en="Color" data-ko="색"></div>
-    <div class="grp hx-cgs" id="gBg" role="group"></div>
-    <div class="sect"><span class="hx-n">2</span><b class="grp-h" data-en="Motion" data-ko="움직임"></b></div>
-    <div class="lab" data-en="Style" data-ko="스타일"></div>
-    <div class="grp" id="gOrd" role="group"></div>
-    <div class="lab" data-en="Playback" data-ko="재생"></div>
-    <div class="grp">
+  <div class="ctl" data-tab="1">
+    <div class="ctl-tabs" role="tablist"><button type="button" role="tab" data-t="1" aria-selected="true" data-en="1 Logo" data-ko="1 로고"></button><button type="button" role="tab" data-t="2" aria-selected="false" data-en="2 Motion" data-ko="2 움직임"></button></div>
+    <div class="sect" data-g="1"><span class="hx-n">1</span><b class="grp-h" data-en="Logo" data-ko="로고"></b></div>
+    <div data-g="1" class="lab" data-en="Version" data-ko="버전"></div>
+    <div data-g="1" class="grp" id="gVer" role="group"></div>
+    <div data-g="1" class="lab" data-en="Color" data-ko="색"></div>
+    <div data-g="1" class="grp hx-cgs" id="gBg" role="group"></div>
+    <div data-g="2" class="sect"><span class="hx-n">2</span><b class="grp-h" data-en="Motion" data-ko="움직임"></b></div>
+    <div data-g="2" class="lab" data-en="Style" data-ko="스타일"></div>
+    <div data-g="2" class="grp" id="gOrd" role="group"></div>
+    <div data-g="2" class="lab" data-en="Playback" data-ko="재생"></div>
+    <div class="grp" data-g="2">
       <button type="button" id="replay" data-en="Replay" data-ko="다시 재생"></button>
       <label class="loop" for="loop"><input id="loop" type="checkbox" checked><span data-en="Loop" data-ko="반복"></span></label>
       <span class="sep" aria-hidden="true"></span>
@@ -293,5 +301,6 @@ window.HXApply(L);build();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)still();else play();
 </script>
 <script src="hcdt-ui.js?v=20261030d" data-tool="motion"></script>
+<script>document.querySelectorAll(".ctl-tabs button").forEach(function(b){b.addEventListener("click",function(){var c=b.closest(".ctl");c.dataset.tab=b.dataset.t;c.querySelectorAll(".ctl-tabs button").forEach(function(x){x.setAttribute("aria-selected",x===b)})})})</script>
 </body>
 </html>
