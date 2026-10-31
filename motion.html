@@ -128,8 +128,8 @@ const VERS=[['full-en','Full Version','풀 버전'],['general','General Use','�
 const HX={purple:'#6B00FF',white:'#FFFFFF',navy:'#001B54',verdigris:'#64D8D8',terracotta:'#E8B9AA',fluoxetine:'#73D888',asparagus:'#E8E041'};
 const ROWS=[
  [['White','흰색'],{Base:[['white','purple','verdigris'],['white','purple','terracotta'],['white','purple','fluoxetine'],['white','purple','asparagus']]}],
- [['Purple','보라'],{A:[['purple','white','verdigris'],['purple','white','terracotta'],['purple','white','fluoxetine'],['purple','white','asparagus']]}],
- [['Color','컬러'],{C:[['verdigris','purple','asparagus'],['terracotta','purple','verdigris'],['fluoxetine','purple','terracotta'],['asparagus','purple','fluoxetine']]}]
+ [['Purple','보라'],{A:[['purple','white','verdigris'],['purple','white','terracotta'],['purple','white','fluoxetine'],['purple','white','asparagus']],B:[['purple','terracotta','verdigris'],['purple','fluoxetine','asparagus'],['purple','verdigris','asparagus'],['purple','asparagus','fluoxetine']]}],
+ [['Color','컬러'],{C:[['verdigris','purple','asparagus'],['terracotta','purple','verdigris'],['fluoxetine','purple','terracotta'],['asparagus','purple','fluoxetine']],D:[['verdigris','terracotta','purple'],['terracotta','fluoxetine','purple'],['fluoxetine','asparagus','purple'],['asparagus','verdigris','purple']],E:[['verdigris','terracotta','asparagus'],['terracotta','fluoxetine','asparagus'],['fluoxetine','asparagus','terracotta'],['asparagus','verdigris','terracotta']]}]
 ];
 const comboOf=k=>{const [g,i]=k.split(':');for(const r of ROWS)if(r[1][g])return r[1][g][+i]||null;return null};
 const RATES=[0.25,0.5,1,1.5,2];
