@@ -318,7 +318,7 @@ try{L=localStorage.getItem('hcdt-lang')==='ko'?'ko':'en'}catch(e){}
 window.HXApply(L);build();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)still();else play();
 </script>
-<script src="hcdt-ui.js?v=20261103d" data-tool="motion"></script>
+<script src="hcdt-ui.js?v=20261103e" data-tool="motion"></script>
 <script>(function(){var tabs=[].slice.call(document.querySelectorAll(".ctl-tabs button"));function pick(b,focus){var c=b.closest(".ctl");c.dataset.tab=b.dataset.t;tabs.forEach(function(x){x.setAttribute("aria-selected",x===b);x.tabIndex=x===b?0:-1});if(focus)b.focus()}
 tabs.forEach(function(b,i){b.addEventListener("click",function(){pick(b)});b.addEventListener("keydown",function(e){var n=e.key==="ArrowRight"?i+1:e.key==="ArrowLeft"?i-1:e.key==="Home"?0:e.key==="End"?tabs.length-1:-1;if(n<0)return;e.preventDefault();pick(tabs[(n+tabs.length)%tabs.length],true)})})})()</script>
 </body>
