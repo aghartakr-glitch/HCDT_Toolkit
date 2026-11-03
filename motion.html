@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="hcdt-ui.css?v=20261031c">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261103a">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -35,6 +35,7 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 @media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr);gap:6px}.lab{margin-top:8px}}
 .ctl-tabs{display:none}
 .play{margin-top:12px}
+.hx-chip[data-lc]{background-image:linear-gradient(135deg,transparent 82%,rgba(0,0,0,.4) 82%)!important}
 /* inside the guideline frame the preview is sized so the whole tool fits the frame (no inner scroll) */
 html.hx-framed:not(.hx-wide) .tw-d{display:none}
 @media (min-width:1000px){html.hx-framed:not(.hx-wide) .left .stage{width:min(100%,calc((100vh - 300px) * 16 / 9))}}
@@ -95,13 +96,14 @@ html.hx-wide .stage svg{width:100%;height:auto;max-height:100%}
     </div>
   </div>
 
-  <div class="ctl" data-tab="1">
-    <div class="ctl-tabs" role="tablist"><button type="button" role="tab" data-t="1" aria-selected="true" data-en="Logo" data-ko="로고"></button><button type="button" role="tab" data-t="2" aria-selected="false" data-en="Motion" data-ko="움직임"></button></div>
+  <div class="ctl" id="ctl" data-tab="1">
+    <div class="ctl-tabs" role="tablist" aria-label="Controls"><button type="button" role="tab" data-t="1" aria-controls="ctl" tabindex="0" aria-selected="true" data-en="Logo" data-ko="로고"></button><button type="button" role="tab" data-t="2" aria-controls="ctl" tabindex="-1" aria-selected="false" data-en="Motion" data-ko="움직임"></button></div>
     <div class="sect" data-g="1"><span class="hx-n">1</span><b class="grp-h" data-en="Logo" data-ko="로고"></b></div>
     <div data-g="1" class="lab" data-en="Version" data-ko="버전"></div>
     <div data-g="1" class="grp" id="gVer" role="group"></div>
     <div data-g="1" class="lab" data-en="Color" data-ko="색"></div>
     <div data-g="1" class="grp hx-cgs" id="gBg" role="group"></div>
+    <p data-g="1" class="note" id="cstat" aria-live="polite"></p>
     <div data-g="2" class="sect"><span class="hx-n">2</span><b class="grp-h" data-en="Motion" data-ko="움직임"></b></div>
     <div data-g="2" class="lab" data-en="Style" data-ko="스타일"></div>
     <div data-g="2" class="grp" id="gOrd" role="group"></div>
@@ -153,6 +155,7 @@ const hex2=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
 const mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
 const css=c=>`rgb(${c.map(v=>Math.round(v)).join(',')})`;
 
+let MSG='';
 let dim={w:1,h:1},mods=[],typeEl=null,logoG=null,raf=0,t0=0,total=0,state='play';
 function build(){
   const D=DATA[S.ver],sc=scheme();
@@ -237,7 +240,9 @@ function btn(host,label,on,fn,color){
 const T=(en,ko)=>L==='ko'?ko:en;
 function sw(host,color,name,on,fn){const b=document.createElement('button');b.type='button';b.className='hx-sw';b.style.setProperty('--c',color);b.title=name;b.setAttribute('aria-label',name);b.setAttribute('aria-pressed',String(on));b.addEventListener('click',fn);host.appendChild(b)}
 function cap(host,t){const e=document.createElement('span');e.className='swn';e.textContent=t;host.appendChild(e)}
-function chip(host,bg,tx,pt,name,on,fn){const b=document.createElement('button');b.type='button';b.className='hx-chip';b.style.cssText=`--b:${bg};--t:${tx};--p:${pt}`;b.title=name;b.setAttribute('aria-label',name);b.setAttribute('aria-pressed',String(on));b.innerHTML='Aa<i></i>';b.addEventListener('click',fn);host.appendChild(b)}
+const _lum=h=>{const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const ratio=(a,b)=>{const x=_lum(a),y=_lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+function chip(host,bg,tx,pt,name,on,fn){const b=document.createElement('button');if(ratio(bg,tx)<3)b.dataset.lc=ratio(bg,tx).toFixed(1);b.type='button';b.className='hx-chip';b.style.cssText=`--b:${bg};--t:${tx};--p:${pt}`;b.title=name;b.setAttribute('aria-label',name);b.setAttribute('aria-pressed',String(on));b.innerHTML='Aa<i></i>';b.addEventListener('click',fn);host.appendChild(b)}
 function cgroup(host,label){const g=document.createElement('div');g.className='hx-cg';const l=document.createElement('b');l.textContent=label;const c=document.createElement('div');c.className='hx-chips';g.append(l,c);host.appendChild(g);return c}
 function controls(){
   $('gVer').textContent='';VERS.forEach(v=>btn($('gVer'),T(v[1],v[2]),S.ver===v[0],()=>{S.ver=v[0];redo()}));
@@ -248,7 +253,10 @@ function controls(){
     chip(g,NAVY,WHITE,WHITE,T('UNIST Navy · white','UNIST Navy 배경 · 흰색'),full&&S.full==='navy',()=>{S.ver='full-en';S.full='navy';redo()});}
   /* the colored combinations belong to the General Use / Limited Space logos: picking one switches the version */
   ROWS.forEach(r=>{const g=cgroup(B,T(r[0][0],r[0][1]));
-    Object.keys(r[1]).forEach(k=>r[1][k].forEach((c,i)=>{const id=k+':'+i;chip(g,HX[c[0]],HX[c[1]],HX[c[2]],c.join(' / '),!full&&S.cb===id,()=>{S.cb=id;if(S.ver.startsWith('full'))S.ver='general';redo()})}))});
+    Object.keys(r[1]).forEach(k=>r[1][k].forEach((c,i)=>{const id=k+':'+i;chip(g,HX[c[0]],HX[c[1]],HX[c[2]],c.join(' / '),!full&&S.cb===id,()=>{S.cb=id;if(S.ver.startsWith('full')){S.ver='general';MSG=T('Full Version has no accent colors, so the logo switched to General Use.','풀 버전에는 보조색을 쓰지 않아 일반용으로 바꿨습니다.')}redo()})}))});
+  {const c=full?null:comboOf(S.cb);let nm=full?T('Full Version · ','풀 버전 · ')+(S.full==='navy'?T('UNIST Navy background','UNIST Navy 배경'):T('white background','흰 배경')):T('Color · ','색 · ')+c.join(' / ');
+   if(c&&ratio(HX[c[0]],HX[c[1]])<3)nm+=' · '+T('low contrast ','대비 낮음 ')+ratio(HX[c[0]],HX[c[1]]).toFixed(1)+':1';
+   $('cstat').textContent=(MSG?MSG+' ':'')+nm;MSG='';}
   $('gOrd').textContent='';MOT.forEach(o=>btn($('gOrd'),T(o[1],o[2]),S.mot===o[0],()=>{S.mot=o[0];redo()}));
   $('gRate').textContent='';RATES.forEach(r=>btn($('gRate'),r+'×',S.rate===r,()=>{S.rate=r;controls();play()}));
 }
@@ -307,7 +315,8 @@ try{L=localStorage.getItem('hcdt-lang')==='ko'?'ko':'en'}catch(e){}
 window.HXApply(L);build();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)still();else play();
 </script>
-<script src="hcdt-ui.js?v=20261030h" data-tool="motion"></script>
-<script>document.querySelectorAll(".ctl-tabs button").forEach(function(b){b.addEventListener("click",function(){var c=b.closest(".ctl");c.dataset.tab=b.dataset.t;c.querySelectorAll(".ctl-tabs button").forEach(function(x){x.setAttribute("aria-selected",x===b)})})})</script>
+<script src="hcdt-ui.js?v=20261103a" data-tool="motion"></script>
+<script>(function(){var tabs=[].slice.call(document.querySelectorAll(".ctl-tabs button"));function pick(b,focus){var c=b.closest(".ctl");c.dataset.tab=b.dataset.t;tabs.forEach(function(x){x.setAttribute("aria-selected",x===b);x.tabIndex=x===b?0:-1});if(focus)b.focus()}
+tabs.forEach(function(b,i){b.addEventListener("click",function(){pick(b)});b.addEventListener("keydown",function(e){var n=e.key==="ArrowRight"?i+1:e.key==="ArrowLeft"?i-1:e.key==="Home"?0:e.key==="End"?tabs.length-1:-1;if(n<0)return;e.preventDefault();pick(tabs[(n+tabs.length)%tabs.length],true)})})})()</script>
 </body>
 </html>
