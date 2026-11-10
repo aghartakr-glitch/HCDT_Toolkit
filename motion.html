@@ -46,10 +46,10 @@ html.hx-framed:not(.hx-wide) .tw-d{display:none}
 .tw-d[open] summary{margin-bottom:8px}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
 @media (min-width:1000px){
-  html:not(.hx-wide) .wrap{grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:start;gap:20px 24px}
+  html:not(.hx-wide) .wrap{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start;gap:20px 24px}
   html:not(.hx-wide) .wrap>*{grid-column:1/-1}
-  html:not(.hx-wide) .wrap>.left{grid-column:1}
-  html:not(.hx-wide) .wrap>.ctl{grid-column:2;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start}
+  html:not(.hx-wide) .wrap>.left{grid-column:1/span 8}
+  html:not(.hx-wide) .wrap>.ctl{grid-column:9/-1;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start}
   .ctl-tabs{display:flex;gap:20px;border-bottom:1px solid var(--hx-line,#ddd);margin-bottom:6px}
   body.hx-p-motion .wrap .ctl .ctl-tabs button{min-height:0;padding:6px 0!important;border:0!important;border-bottom:2px solid transparent!important;margin-bottom:-1px;border-radius:0!important;background:transparent!important;color:#000!important;font-weight:600;cursor:pointer}
   body.hx-p-motion .wrap .ctl .ctl-tabs button:hover{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-line,#ddd)!important}
@@ -58,6 +58,12 @@ html.hx-framed:not(.hx-wide) .tw-d{display:none}
   .ctl .sect{display:none}
   html:not(.hx-wide) .ctl .lab{margin-top:8px}
 }
+
+/* Controls tabs (Logo / Motion) = content tabs (.unist-tabs__tab tiles) */
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs{border-bottom:0;gap:10px;padding:4px 8px 8px 4px;margin:0 0 0 -4px}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs button{display:inline-flex!important;align-items:center;box-sizing:border-box;margin:0!important;padding:.45rem .9rem!important;border:1.5px solid #6b00ff!important;border-radius:.5rem!important;background:#fff!important;color:#000!important;font-weight:600!important;line-height:1.25!important;transition:background-color 150ms,box-shadow 150ms,transform 150ms}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs button:hover{background:var(--sub-light)!important;box-shadow:5px 5px 0 var(--sub);transform:translate(-2px,-2px);color:#000!important;border-bottom-color:#6b00ff!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs button[aria-selected=true]{background:var(--sub-medium)!important;color:#000!important;border-bottom-color:#6b00ff!important}
 </style>
 <style>
 /* wide workspace: stage left, controls right */
