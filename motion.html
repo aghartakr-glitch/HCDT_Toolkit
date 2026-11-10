@@ -6,6 +6,7 @@
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="hcdt-ui.css?v=20261105d">
+<link rel="stylesheet" href="hcdt-embed.css?v=20261111a">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -13,7 +14,7 @@ html,body{margin:0}
 [hidden]{display:none!important}
 *{box-sizing:border-box}
 body{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:var(--hx-max);margin:28px auto 0;display:grid;gap:20px}
+.wrap{max-width:var(--hx-max);margin:var(--space-4,24px) auto 0;display:grid;gap:var(--space-4,24px)}
 .wrap>*{min-width:0}
 .stage{border-radius:var(--hx-r2);overflow:hidden;line-height:0;background:var(--hx-soft);border:1px solid var(--hx-line)}
 .stage svg{display:block;width:100%;height:auto;aspect-ratio:16/9;max-width:100%}
@@ -37,33 +38,29 @@ th{color:var(--hx-muted);font-weight:400;font-size:var(--fs-small)}
 .play{margin-top:12px}
 html.hx-framed body.hx-p-motion.hx-tool{padding-bottom:12px!important}
 #cstat{margin:0;font-size:12px;line-height:1.3;min-height:0}
-@media (min-width:1000px){html.hx-framed:not(.hx-wide) .wrap>.ctl{gap:3px}html.hx-framed:not(.hx-wide) .ctl .lab{margin-top:4px}}
+@media (min-width:1000px){html.hx-framed .wrap>.ctl{gap:3px}html.hx-framed .ctl .lab{margin-top:4px}}
 .hx-chip[data-lc]{background-image:linear-gradient(135deg,transparent 82%,rgba(0,0,0,.4) 82%)!important}
 /* inside the guideline frame the preview is sized so the whole tool fits the frame (no inner scroll) */
-html.hx-framed:not(.hx-wide) .tw-d{display:none}
-@media (min-width:1000px){html.hx-framed:not(.hx-wide) .left .stage{width:min(100%,calc((100vh - 300px) * 16 / 9))}}
+html.hx-framed .tw-d{display:none}
 .tw-d summary{cursor:pointer;font-weight:600;color:var(--hx-muted);padding:6px 0}
 .tw-d[open] summary{margin-bottom:8px}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
 @media (min-width:1000px){
-  html:not(.hx-wide) .wrap{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start;gap:20px 24px}
-  html:not(.hx-wide) .wrap>*{grid-column:1/-1}
-  html:not(.hx-wide) .wrap>.left{grid-column:1/span 8}
-  html:not(.hx-wide) .wrap>.ctl{grid-column:9/-1;grid-template-columns:minmax(0,1fr);gap:6px;align-self:start}
+  .wrap{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:0;row-gap:var(--space-4,24px);align-items:stretch}
+  .wrap>*{grid-column:1/-1}
+  .wrap>.left{grid-column:1/span 8;display:grid;grid-template-rows:minmax(0,1fr) auto;border:1px solid var(--line-structural,rgba(0,0,0,.22));border-right:0}
+  .wrap>.left>.stage{border:0;border-radius:0;width:100%}
+  .wrap>.left>.play{padding:var(--space-3,16px) var(--space-4,24px);border-top:1px solid var(--line-structural,rgba(0,0,0,.22))}
+  .wrap>.ctl{grid-column:9/-1;grid-template-columns:minmax(0,1fr);gap:6px;align-content:start;padding:var(--space-4,24px);border:1px solid var(--line-structural,rgba(0,0,0,.22))}
   .ctl-tabs{display:flex;gap:20px;border-bottom:1px solid var(--hx-line,#ddd);margin-bottom:6px}
   body.hx-p-motion .wrap .ctl .ctl-tabs button{min-height:0;padding:6px 0!important;border:0!important;border-bottom:2px solid transparent!important;margin-bottom:-1px;border-radius:0!important;background:transparent!important;color:#000!important;font-weight:600;cursor:pointer}
   body.hx-p-motion .wrap .ctl .ctl-tabs button:hover{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-line,#ddd)!important}
   body.hx-p-motion .wrap .ctl .ctl-tabs button[aria-selected=true]{color:var(--hx-accent,#6B00FF)!important;border-bottom-color:var(--hx-accent,#6B00FF)!important}
   .ctl[data-tab="1"] [data-g="2"],.ctl[data-tab="2"] [data-g="1"]{display:none!important}
   .ctl .sect{display:none}
-  html:not(.hx-wide) .ctl .lab{margin-top:8px}
+  .ctl .lab{margin-top:8px}
 }
 
-/* Controls tabs (Logo / Motion) = content tabs (.unist-tabs__tab tiles) */
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs{border-bottom:0;gap:10px;padding:4px 8px 8px 4px;margin:0 0 0 -4px}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs button{display:inline-flex!important;align-items:center;box-sizing:border-box;margin:0!important;padding:.45rem .9rem!important;border:1.5px solid #6b00ff!important;border-radius:.5rem!important;background:#fff!important;color:#000!important;font-weight:600!important;line-height:1.25!important;transition:background-color 150ms,box-shadow 150ms,transform 150ms}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs button:hover{background:var(--sub-light)!important;box-shadow:5px 5px 0 var(--sub);transform:translate(-2px,-2px);color:#000!important;border-bottom-color:#6b00ff!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-motion .wrap .ctl .ctl-tabs button[aria-selected=true]{background:var(--sub-medium)!important;color:#000!important;border-bottom-color:#6b00ff!important}
 </style>
 <style>
 /* wide workspace: stage left, controls right */
