@@ -6,7 +6,7 @@
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="hcdt-ui.css?v=20261105d">
-<link rel="stylesheet" href="hcdt-embed.css?v=20261112b">
+<link rel="stylesheet" href="hcdt-embed.css?v=20261112g">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -46,9 +46,9 @@ html.hx-framed .tw-d{display:none}
 .tw-d[open] summary{margin-bottom:8px}
 /* wide screens: preview left, controls right (so the controls are visible without scrolling) */
 @media (min-width:1000px){
-  .wrap{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:0;row-gap:var(--space-4,24px);align-items:stretch}
+  .wrap{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--space-4,24px);row-gap:var(--space-4,24px);align-items:stretch}
   .wrap>*{grid-column:1/-1}
-  .wrap>.left{grid-column:1/span 8;display:grid;grid-template-rows:minmax(0,1fr) auto;border:1px solid var(--line-structural,rgba(0,0,0,.22));border-right:0}
+  .wrap>.left{grid-column:1/span 8;display:grid;grid-template-rows:minmax(0,1fr) auto;border:1px solid var(--line-structural,rgba(0,0,0,.22))}
   .wrap>.left>.stage{border:0;border-radius:0;width:100%}
   .wrap>.left>.play{padding:var(--space-3,16px) var(--space-4,24px);border-top:1px solid var(--line-structural,rgba(0,0,0,.22))}
   .wrap>.ctl{grid-column:9/-1;grid-template-columns:minmax(0,1fr);gap:6px;align-content:start;padding:var(--space-4,24px);border:1px solid var(--line-structural,rgba(0,0,0,.22))}
