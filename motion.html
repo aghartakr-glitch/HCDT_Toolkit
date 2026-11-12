@@ -6,7 +6,7 @@
 <title>HCDT Logo Motion</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="hcdt-ui.css?v=20261105d">
-<link rel="stylesheet" href="hcdt-embed.css?v=20261112g">
+<link rel="stylesheet" href="hcdt-embed.css?v=20261112k">
 <style>
 /* Layout: header, 16:9 stage (1920 × 1080 frame), control rows, timing table */
 html,body{margin:0}
@@ -48,7 +48,7 @@ html.hx-framed .tw-d{display:none}
 @media (min-width:1000px){
   .wrap{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--space-4,24px);row-gap:var(--space-4,24px);align-items:stretch}
   .wrap>*{grid-column:1/-1}
-  .wrap>.left{grid-column:1/span 8;display:grid;grid-template-rows:minmax(0,1fr) auto;border:1px solid var(--line-structural,rgba(0,0,0,.22))}
+  .wrap>.left{grid-column:1/span 8;margin-right:calc(var(--space-4,24px)*-1);border-right:0!important;display:grid;grid-template-rows:minmax(0,1fr) auto;border:1px solid var(--line-structural,rgba(0,0,0,.22))}
   .wrap>.left>.stage{border:0;border-radius:0;width:100%}
   .wrap>.left>.play{padding:var(--space-3,16px) var(--space-4,24px);border-top:1px solid var(--line-structural,rgba(0,0,0,.22))}
   .wrap>.ctl{grid-column:9/-1;grid-template-columns:minmax(0,1fr);gap:6px;align-content:start;padding:var(--space-4,24px);border:1px solid var(--line-structural,rgba(0,0,0,.22))}
@@ -78,8 +78,11 @@ html.hx-framed .tw-d{display:none}
 <div class="wrap">
   <header>
     <h1 data-en="HCDT Logo Motion" data-ko="HCDT 로고 모션"></h1>
-    <p class="sub" data-en="Pick one of 10 motions: the symbol modules enter, then the wordmark fades in. Logos and colors follow the N-FUD 2026 guide (261028), with the same color combinations as Poster and Slides." data-ko="10가지 모션 중 하나를 고르면 심볼 모듈이 등장한 뒤 워드마크가 나타납니다. 로고와 색은 N-FUD 2026 가이드(261028)와 포스터·슬라이드 배색 기준."></p>
+    <p class="sub" data-en="Pick one of 10 motions: the symbol modules enter, then the wordmark fades in. Logos and colors follow the N-FUD 2026 guide, with the same color combinations as Poster and Slides." data-ko="10가지 모션 중 하나를 고르면 심볼 모듈이 등장한 뒤 워드마크가 나타납니다. 로고와 색은 N-FUD 2026 가이드와 포스터·슬라이드 배색 기준."></p>
     <div class="hx-act">
+      <span class="hx-sep"></span>
+      <span class="hx-ph" aria-hidden="true"></span>
+      <span class="hx-sep"></span>
       <div class="hx-menu"><button type="button" class="primary" data-hx-menu aria-haspopup="true" aria-expanded="false">Export ▾</button>
         <div class="hx-menu-pop" hidden>
           <button type="button" class="hx-mi" id="exWebm">WebM video</button>
